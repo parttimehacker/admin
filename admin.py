@@ -128,7 +128,6 @@ def on_message(client, user_data, msg):
         post_system_status(msg)
         email_critical_system_status(msg)
     else:
-        print("invoking post_server_status()")
         post_server_status(msg)
 
 

@@ -1,5 +1,5 @@
 # admin
-Admin process to initialize the do it your self home automation system (DIYHAS). 
+System administration process to initialize the do it your self home automation system (DIYHAS). 
 ## Description: 
 This is my latest Raspberry Pi project that implements an administration server and MQTT-to-HTTP translator for my "do it yourself home automation" system.  The application requires **Raspbian OS** and is written in **python3**. I usually create a **systemd service** so the application runs at boot.
 

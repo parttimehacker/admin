@@ -124,7 +124,8 @@ def on_message(client, user_data, msg):
     """
     #pylint: disable=unused-argument
     if msg.topic == 'diy/system/who':
-        WHO.message(msg)
+        if msg.payload == b'ON':
+            STATUS.publish_who_message()
     elif 'system' in msg.topic:
         post_system_status(msg)
         email_critical_system_status(msg)

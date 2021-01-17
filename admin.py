@@ -122,9 +122,12 @@ def email_critical_system_status(msg):
 
 # The callback for when a PUBLISH message is received from the server
 def on_message(client, user_data, msg):
-    """ dispatch to the appropriate MQTT topic handler """
+    """ dispatch to the appropriate MQTT topic handler 
+    """
     #pylint: disable=unused-argument
-    if 'system' in msg.topic:
+    if msg.topic == 'diy/system/who':
+        WHO.message(msg)
+    elif 'system' in msg.topic:
         post_system_status(msg)
         email_critical_system_status(msg)
     else:
@@ -142,6 +145,7 @@ def on_connect(client, userdata, flags, rc_msg):
     client.subscribe("diy/system/panic", 1)
     client.subscribe("diy/system/security", 1)
     client.subscribe("diy/system/silent", 1)
+    client.subscribe("diy/system/who", 1)
     client.subscribe("diy/+/os", 1)
     client.subscribe("diy/+/pi", 1)
     client.subscribe("diy/+/ip", 1)
@@ -154,7 +158,6 @@ def on_disconnect(client, userdata, rc_msg):
     # pylint: disable=unused-argument
     client.connected_flag = False
     client.disconnect_flag = True
-
     
     
 def initialize_system_topics(client,):

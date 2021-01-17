@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ DIYHA admin
-    Send server information to MQTT broker
+    Send web server information from MQTT broker
 """
 
 # The MIT License (MIT)
@@ -90,8 +90,6 @@ def post_system_status(msg):
     api_url = url + "?status=" + status + "&state=" + payload
     response = requests.get(api_url)
     
-
-# Process MQTT messages using a dispatch table algorithm.
 
 def email_critical_system_status(msg): 
     """ process alert and fire system messages
@@ -209,6 +207,11 @@ if __name__ == '__main__':
     CLIENT.on_connect = on_connect
     CLIENT.on_disconnect = on_disconnect
     CLIENT.on_message = on_message
+    
+    # initialize status monitoring
+
+    STATUS = StatusModel(CLIENT)
+    STATUS.start()
 
     # command line argument for the switch mode - motion activated is the default
 
@@ -216,11 +219,6 @@ if __name__ == '__main__':
     CLIENT.loop_start()
 
     time.sleep(2) # let MQTT stuff initialize
-
-    # initialize status monitoring
-
-    STATUS = StatusModel(CLIENT)
-    STATUS.start()
     
     # set the state of overall system at all diyha devices
     

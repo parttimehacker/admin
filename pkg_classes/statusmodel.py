@@ -109,9 +109,17 @@ class StatusModel:
         self.client.publish( self.ip_address_topic, self.ip_address, 0, True )
         # self.logger.info( self.host )
         # self.logger.info( self.ip_address )
+        
+    def publish_who_information(self,):
+        """ send local server information to the web server
+        """
+        self.publish_os_version()
+        self.publish_pi_version()
+        self.publish_ip_address()
 
     def start(self):
-        """ Start the monitoring thread """
+        """ Start the monitoring thread 
+        """
         self.publish_os_version()
         self.publish_pi_version()
         self.publish_ip_address()
@@ -121,7 +129,8 @@ class StatusModel:
         led_thread.start()
 
     def collect_metrics(self):
-        """ sleep and then collect data, averaging every 15 minutes """
+        """ sleep and then collect data, averaging every 15 minutes 
+        """
         while True:
             if self.inactive:
                 return
@@ -129,9 +138,6 @@ class StatusModel:
             self.collect_data()
             if self.iterations >= 15.0:
                 self.publish_averages()
-                self.publish_os_version()
-                self.publish_pi_version()
-                self.publish_ip_address()
 
     def stop(self, ):
         """ Turn power off to the GPIO pin. """

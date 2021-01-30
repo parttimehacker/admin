@@ -150,6 +150,7 @@ def on_connect(client, userdata, flags, rc_msg):
     client.subscribe("diy/+/ip", 1)
     client.subscribe("diy/+/cpu", 1)
     client.subscribe("diy/+/cpucelsius", 1)
+    client.subscribe("diy/+/disk", 1)
 
 
 def on_disconnect(client, userdata, rc_msg):
